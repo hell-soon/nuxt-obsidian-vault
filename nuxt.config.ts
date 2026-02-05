@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
 
-  modules: ['@pinia/nuxt', 'reka-ui/nuxt', 'nuxt-auth-utils'],
+  modules: ['@pinia/nuxt', 'reka-ui/nuxt', 'nuxt-auth-utils', '@vueuse/nuxt'],
 
   future: {
     compatibilityVersion: 5,
@@ -14,11 +14,16 @@ export default defineNuxtConfig({
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: `@use "@/assets/scss/_variables.scss" as *;`,
+          additionalData: `
+            @use "@/assets/scss/_variables.scss" as *;
+            @use "@/assets/scss/_mixins.scss" as *;
+          `,
         },
       },
     },
   },
+
+  css: ['@/assets/scss/main.scss'],
 
   runtimeConfig: {
     public: {

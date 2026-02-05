@@ -1,0 +1,33 @@
+// app/assets/scss/_mixins.scss
+@use "@/assets/scss/_variables.scss" as *;
+
+@mixin reset-button {
+  all: unset;
+  cursor: pointer;
+  box-sizing: border-box;
+  text-align: center;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin focus-ring {
+  &:focus-visible {
+    outline: 2px solid $accent-primary;
+    outline-offset: 2px;
+  }
+}
+
+@mixin scrollbar-hide {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@mixin grid($gap: $space-md, $min-width: 250px) {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax($min-width, 1fr));
+  gap: $gap;
+}
