@@ -1,33 +1,17 @@
-import process from 'node:process'
+import { componentsHook } from './config/components'
+import { modulesConfig } from './config/modules'
+import { servicesConfig } from './config/services'
+import { systemConfig } from './config/system'
 
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
-  devtools: { enabled: true },
 
-  modules: ['@pinia/nuxt', 'reka-ui/nuxt', 'nuxt-auth-utils', '@vueuse/nuxt'],
+  ...systemConfig,
+  modules: modulesConfig,
+  ...servicesConfig,
 
-  future: {
-    compatibilityVersion: 5,
+  hooks: {
+    'components:dirs': componentsHook,
   },
 
-  vite: {
-    css: {
-      preprocessorOptions: {
-        scss: {
-          additionalData: `
-            @use "@/assets/scss/_variables.scss" as *;
-            @use "@/assets/scss/_mixins.scss" as *;
-          `,
-        },
-      },
-    },
-  },
-
-  css: ['@/assets/scss/main.scss'],
-
-  runtimeConfig: {
-    public: {
-      baseUrl: process.env.NUXT_PUBLIC_BASE_URL || 'http://localhost:3000',
-    },
-  },
 })

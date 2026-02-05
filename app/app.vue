@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import UserMenu from './components/shared/user-menu.vue'
-
 const { x, y } = useMouse({ type: 'client' })
 </script>
 
@@ -12,7 +10,7 @@ const { x, y } = useMouse({ type: 'client' })
     <!-- <cursor-effect /> -->
     <div class="app-layout">
       <aside>
-        <user-menu />
+        <s-user-menu />
       </aside>
       <main class="app-layout__content">
         <nuxt-page />
