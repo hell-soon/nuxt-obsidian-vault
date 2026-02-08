@@ -12,7 +12,7 @@ export const systemConfig: NuxtConfig = {
 
   experimental: {
     componentIslands: true,
-    typedPages: true,
+    // typedPages: true,
     viteEnvironmentApi: true,
     nitroAutoImports: true,
   },

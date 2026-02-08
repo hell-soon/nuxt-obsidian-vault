@@ -2,10 +2,10 @@
 import { LogOut, Settings, User } from 'lucide-vue-next'
 
 const { user, clear } = useUserSession()
-const userStore = useUserStore()
+// const userStore = useUserStore()
 
 async function handleLogout() {
-  userStore.clearProfile()
+  // userStore.clearProfile()
   await clear()
   await navigateTo('/login')
 }
@@ -26,13 +26,13 @@ async function handleLogout() {
       >
       <div class="user-details">
         <span class="user-name">{{ user.login }}</span>
-        <span
-          v-if="userStore.currentRepo"
+        <!-- <span
+          v-if="user.repo"
           class="user-repo"
         >
           <user class="icon-mini" />
-          {{ userStore.currentRepo.split('/')[1] }}
-        </span>
+          {{ user.currentRepo.split('/')[1] }}
+        </span> -->
       </div>
     </div>
 

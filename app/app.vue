@@ -1,14 +1,16 @@
 <script setup lang="ts">
-const { loggedIn } = useUserSession()
-const userStore = useUserStore()
+import fileTree from './components/file-tree.vue'
 
-if (import.meta.client) {
-  await callOnce('app-init', async () => {
-    if (loggedIn.value) {
-      await userStore.fetchProfile()
-    }
-  })
-}
+// const { loggedIn } = useUserSession()
+// const userStore = useUserStore()
+
+// if (import.meta.client) {
+//   await callOnce('app-init', async () => {
+//     if (loggedIn.value) {
+//       await userStore.fetchProfile()
+//     }
+//   })
+// }
 </script>
 
 <template>
@@ -18,6 +20,7 @@ if (import.meta.client) {
     <div class="app-layout">
       <aside>
         <s-user-menu />
+        <file-tree />
       </aside>
       <main class="app-layout__content">
         <nuxt-page />

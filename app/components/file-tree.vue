@@ -10,7 +10,6 @@ interface FileNode {
   loading?: boolean
   isLoaded?: boolean
 }
-
 const treeData = ref<FileNode[]>([])
 const expandedNodes = ref<string[]>([])
 
@@ -45,7 +44,6 @@ async function handleExpandedChange(newExpandedState: string[]) {
     const node = findNode(treeData.value, id)
 
     if (node && node.type === 'dir' && !node.isLoaded && !node.loading) {
-      console.log('Fetching:', id)
       node.loading = true
 
       try {

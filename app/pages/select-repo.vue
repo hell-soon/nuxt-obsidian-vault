@@ -65,10 +65,11 @@ async function handleSelect(fullName: string) {
         :key="repo.name"
         class="repo-card"
         :disabled="!!selectedRepoFullName"
-        @click="handleSelect(repo.name)"
+        @click="handleSelect(repo.full_name)"
       >
         <div class="repo-info">
           <span class="name">{{ repo.name }}</span>
+          <span class="full-name">{{ repo.full_name }}</span>
         </div>
 
         <div class="status-icon">

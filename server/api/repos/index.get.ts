@@ -6,6 +6,7 @@ export default defineEventHandler(async (event) => {
   return res.map(repo => ({
     id: repo.id,
     name: repo.name,
+    full_name: repo.full_name,
     desc: repo.description,
     url: repo.html_url,
     private: repo.private,

@@ -6,6 +6,9 @@ declare module '#auth-utils' {
     email?: string
   }
 
+  interface UserSession {
+    repo?: string | null
+  }
 }
 
 export { }
