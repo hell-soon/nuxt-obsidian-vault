@@ -15,6 +15,8 @@ export default defineEventHandler(async (event): Promise<FileTreeItem[]> => {
 
   const entries = await git.getEntries(path as string || '')
 
+  console.log(entries)
+
   return entries.map(entry => ({
     id: entry.path,
     name: entry.type === 'file' ? entry.name.replace(/\.md$/, '') : entry.name,

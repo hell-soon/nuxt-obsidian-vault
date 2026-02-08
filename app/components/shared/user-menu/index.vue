@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { LogOut, User } from 'lucide-vue-next'
+import { LogOut, Settings, User } from 'lucide-vue-next'
 
 const { user, clear } = useUserSession()
+const userStore = useUserStore()
 
 async function handleLogout() {
+  userStore.clearProfile()
   await clear()
   await navigateTo('/login')
 }
@@ -14,23 +16,41 @@ async function handleLogout() {
     v-if="user"
     class="user-menu"
   >
-    <div class="user-info">
+    <div
+      class="user-info"
+    >
       <img
         v-if="user.avatar"
         :src="user.avatar"
         class="user-avatar"
-        alt="Avatar"
       >
-      <span class="user-name">{{ user.login }}</span>
+      <div class="user-details">
+        <span class="user-name">{{ user.login }}</span>
+        <span
+          v-if="userStore.currentRepo"
+          class="user-repo"
+        >
+          <user class="icon-mini" />
+          {{ userStore.currentRepo.split('/')[1] }}
+        </span>
+      </div>
     </div>
 
-    <button
-      class="logout-btn"
-      title="Logout"
-      @click="handleLogout"
-    >
-      <log-out class="icon-logout" />
-    </button>
+    <div class="user-actions">
+      <nuxt-link
+        to="/select-repo"
+        class="action-btn"
+        title="Change Vault"
+      >
+        <settings class="icon-sm" />
+      </nuxt-link>
+      <button
+        class="action-btn logout"
+        @click="handleLogout"
+      >
+        <log-out class="icon-sm" />
+      </button>
+    </div>
   </div>
 </template>
 

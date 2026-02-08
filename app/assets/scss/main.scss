@@ -103,54 +103,6 @@ textarea {
   position: relative;
   background-color: $bg-main;
 
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    pointer-events: none;
-
-    // background-image: url("data:image/svg+xml,...");
-    background-blend-mode: overlay;
-    box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.9);
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 200%;
-    height: 200%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-    pointer-events: none;
-
-    background:
-      radial-gradient(
-        circle at 60% 30%,
-        rgba(39, 137, 130, 0.4),
-        // Jade Green
-        transparent 70%
-      ),
-      radial-gradient(
-        circle at 40% 70%,
-        rgba(56, 45, 102, 0.6),
-        // Dark Indigo
-        transparent 70%
-      ),
-      linear-gradient(135deg, rgba($accent-primary, 0.5) 0%, rgba(33, 33, 99, 0.5) 50%, rgba(100, 100, 200, 0.5) 100%);
-
-    background-size: 100% 100%;
-    animation: shimmer-move 30s ease-in-out infinite alternate;
-    mix-blend-mode: screen;
-    filter: blur(50px);
-    opacity: 0.2;
-  }
-
   &__sidebar {
     background-color: $bg-sidebar;
     border-right: 1px solid $border-color;
@@ -166,31 +118,5 @@ textarea {
     padding: $space-md;
     position: relative;
     z-index: 10;
-
-    &::before {
-      content: "";
-      position: fixed;
-      width: 500px;
-      height: 500px;
-      border-radius: 50%;
-      z-index: 5;
-      pointer-events: none;
-
-      left: var(--mouse-x);
-      top: var(--mouse-y);
-      transform: translate(-50%, -50%);
-
-      background: radial-gradient(
-        circle at center,
-        rgba($accent-primary, 0.1) 0%,
-        rgba($accent-primary, 0.05) 20%,
-        transparent 70%
-      );
-
-      filter: blur(70px);
-      mix-blend-mode: lighten;
-      opacity: 0.8;
-      transition: opacity 0.3s;
-    }
   }
 }

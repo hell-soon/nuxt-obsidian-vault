@@ -1,13 +1,20 @@
 <script setup lang="ts">
-const { x, y } = useMouse({ type: 'client' })
+const { loggedIn } = useUserSession()
+const userStore = useUserStore()
+
+if (import.meta.client) {
+  await callOnce('app-init', async () => {
+    if (loggedIn.value) {
+      await userStore.fetchProfile()
+    }
+  })
+}
 </script>
 
 <template>
   <div
     class="app-container"
-    :style="{ '--mouse-x': `${x}px`, '--mouse-y': `${y}px` }"
   >
-    <!-- <cursor-effect /> -->
     <div class="app-layout">
       <aside>
         <s-user-menu />

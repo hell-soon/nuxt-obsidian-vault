@@ -1,18 +1,33 @@
+import { db, schema } from '@nuxthub/db'
+import { users } from '~~/server/db/schema'
+
 export default defineOAuthGitHubEventHandler({
   config: {
     emailRequired: true,
   },
   async onSuccess(event, { user, tokens }) {
+    const [dbUser] = await db.insert(schema.users)
+      .values({
+        githubId: String(user.id),
+        avatarUrl: user.avatar_url,
+      })
+      .onConflictDoUpdate({
+        target: users.githubId,
+        set: { avatarUrl: user.avatar_url },
+      })
+      .returning()
+
     await setUserSession(event, {
       user: {
-        login: user.login,
         avatar: user.avatar_url,
-        name: user.name,
         email: user.email,
-        
+        name: user.name,
+        id: user.id,
+        login: user.login,
       },
       secure: {
         githubToken: tokens.access_token,
+        selectRepo: dbUser?.selectedRepo || null,
       },
       repo: null,
     })
