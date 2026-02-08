@@ -8,7 +8,7 @@ export default defineOAuthGitHubEventHandler({
   async onSuccess(event, { user, tokens }) {
     const [dbUser] = await db.insert(schema.users)
       .values({
-        githubId: String(user.id),
+        githubId: user.id,
         avatarUrl: user.avatar_url,
       })
       .onConflictDoUpdate({
