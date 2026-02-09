@@ -78,8 +78,10 @@ watch(note, (newNote) => {
   </div>
 </template>
 
-<style lang="scss" scoped src="../../assets/scss/_markdown.scss">
-.editor-view-container {
+<style lang="scss" src="@/assets/scss/_markdown.scss" />
+
+<style lang='scss' scoped>
+ .editor-view-container {
   display: flex;
   flex-direction: column;
   height: 100%;
