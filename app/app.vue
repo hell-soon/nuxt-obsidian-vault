@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import fileTree from './components/file-tree.vue'
 
-// const { loggedIn } = useUserSession()
+const { loggedIn } = useUserSession()
 // const userStore = useUserStore()
 
 // if (import.meta.client) {
@@ -18,7 +18,10 @@ import fileTree from './components/file-tree.vue'
     class="app-container"
   >
     <div class="app-layout">
-      <aside class="app-layout__sidebar">
+      <aside
+        v-if="loggedIn"
+        class="app-layout__sidebar"
+      >
         <s-user-menu />
         <file-tree />
       </aside>
