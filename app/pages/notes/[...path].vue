@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { Edit, Eye, Loader2, Save, X } from 'lucide-vue-next'
+import { createApp } from 'vue'
+import CodeCopyButton from '~/components/shared/code-copy-btn/index.vue'
 
 definePageMeta({
   layout: 'notes',
@@ -28,6 +30,7 @@ const { data: note, pending, error } = await useFetch<NoteData>('/api/notes/cont
 })
 
 const editableContent = ref('')
+const contentContainer = ref<HTMLDivElement>()
 
 watch(note, (newNote) => {
   if (newNote?.markdown) {
@@ -35,6 +38,45 @@ watch(note, (newNote) => {
     isEditMode.value = false
   }
 }, { immediate: true })
+
+onMounted(() => {
+  addCopyButtonsToCodeBlocks()
+})
+
+watch(() => note.value?.content, () => {
+  nextTick(() => {
+    addCopyButtonsToCodeBlocks()
+  })
+})
+
+function addCopyButtonsToCodeBlocks() {
+  if (!contentContainer.value)
+    return
+
+  const codeBlocks = contentContainer.value.querySelectorAll('pre')
+
+  codeBlocks.forEach((pre) => {
+    if (pre.querySelector('.code-copy-button'))
+      return
+
+    const codeElement = pre.querySelector('code')
+    if (!codeElement)
+      return
+
+    const code = codeElement.textContent || ''
+
+    if (!pre.classList.contains('code-block-wrapper')) {
+      pre.style.position = 'relative'
+      pre.classList.add('code-block-wrapper')
+    }
+
+    const buttonContainer = document.createElement('div')
+    pre.appendChild(buttonContainer)
+
+    const app = createApp(CodeCopyButton, { code })
+    app.mount(buttonContainer)
+  })
+}
 </script>
 
 <template>
@@ -67,6 +109,7 @@ watch(note, (newNote) => {
 
     <div
       v-else
+      ref="contentContainer"
       class="content-area"
     >
       <div

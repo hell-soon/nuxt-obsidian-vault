@@ -110,6 +110,7 @@
   }
 
   pre {
+    position: relative;
     background-color: $bg-sidebar;
     padding: $space-md;
     margin: $space-lg 0;
@@ -119,6 +120,8 @@
     line-height: 1.5;
     border: 1px solid $border-color;
 
+    padding-right: 3rem;
+
     code {
       background: none !important;
       color: $text-bright !important;
@@ -126,6 +129,10 @@
       line-height: inherit;
       font-size: inherit;
       font-weight: normal;
+    }
+
+    &:hover {
+      border-color: rgba($accent-primary, 0.3);
     }
   }
 
