@@ -139,23 +139,6 @@ async function handleExpandedChange(newExpandedState: string[]) {
   overflow-x: hidden;
   flex: 1;
 
-  &::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
-
-    &:hover {
-      background: rgba(255, 255, 255, 0.15);
-    }
-  }
-
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
 }
