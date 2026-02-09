@@ -18,7 +18,7 @@ import fileTree from './components/file-tree.vue'
     class="app-container"
   >
     <div class="app-layout">
-      <aside>
+      <aside class="app-layout__sidebar">
         <s-user-menu />
         <file-tree />
       </aside>

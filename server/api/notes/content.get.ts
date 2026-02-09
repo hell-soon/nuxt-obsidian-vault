@@ -1,5 +1,3 @@
-import { parseMarkdown } from '~~/server/utils/markdown'
-
 interface NoteData {
   path: string
   content: string
@@ -18,7 +16,9 @@ export default defineEventHandler(async (event): Promise<NoteData> => {
   try {
     const file = await git.getFile(path)
 
-    const htmlContent = await parseMarkdown(file.content || '')
+    const htmlContent = await parseMarkdown(file.content || '', {
+      currentFilePath: path,
+    })
 
     return {
       path: file.path,

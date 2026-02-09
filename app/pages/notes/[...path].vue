@@ -14,7 +14,6 @@ interface NoteData {
 
 const route = useRoute()
 const isEditMode = ref(false)
-const isSaving = ref(false)
 
 const filePath = computed(() => {
   const pathArray = Array.isArray(route.params.path) ? route.params.path : [route.params.path]
@@ -36,15 +35,6 @@ watch(note, (newNote) => {
     isEditMode.value = false
   }
 }, { immediate: true })
-
-async function handleSave() {
-  if (!note.value || !editableContent.value || isSaving.value)
-    return
-  isSaving.value = true
-
-  isEditMode.value = false
-  isSaving.value = false
-}
 </script>
 
 <template>
@@ -54,38 +44,6 @@ async function handleSave() {
       class="editor-header"
     >
       <span class="file-path">{{ filePath }}</span>
-
-      <div class="toolbar">
-        <button
-          v-if="isEditMode"
-          title="View Mode"
-          class="toolbar-btn"
-          @click="isEditMode = false"
-        >
-          <eye />
-        </button>
-        <button
-          v-else
-          title="Edit Mode"
-          class="toolbar-btn"
-          @click="isEditMode = true"
-        >
-          <edit />
-        </button>
-
-        <button
-          v-if="isEditMode"
-          :disabled="isSaving"
-          class="toolbar-btn primary"
-          @click="handleSave"
-        >
-          <loader2
-            v-if="isSaving"
-            class="icon-spin"
-          />
-          <save v-else />
-        </button>
-      </div>
     </header>
 
     <div
@@ -112,21 +70,15 @@ async function handleSave() {
       class="content-area"
     >
       <div
-        v-if="!isEditMode && note"
+        v-if="note"
         class="markdown-content"
         v-html="note.content"
-      />
-
-      <textarea
-        v-else-if="isEditMode"
-        v-model="editableContent"
-        class="markdown-editor"
       />
     </div>
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped src="../../assets/scss/_markdown.scss">
 .editor-view-container {
   display: flex;
   flex-direction: column;
@@ -202,59 +154,6 @@ async function handleSave() {
   line-height: 1.6;
   padding: 0;
   outline: none;
-}
-
-.markdown-content {
-  padding: $space-lg;
-  line-height: 1.7;
-
-  :deep(blockquote) {
-    border-left: 4px solid $accent-primary;
-    padding: $space-sm $space-md;
-    margin: $space-lg 0;
-    background-color: rgba($accent-primary, 0.1);
-    border-radius: $radius-md;
-    color: $text-bright;
-
-    :deep(p) {
-      margin-bottom: 0;
-    }
-  }
-
-  :deep(pre) {
-    background-color: $bg-sidebar;
-    padding: $space-md;
-    margin: $space-lg 0;
-    overflow-x: auto;
-    border-radius: $radius-md;
-    font-size: 0.9rem;
-    line-height: 1.4;
-
-    code {
-      background: none !important;
-      color: inherit !important;
-      padding: 0;
-      line-height: inherit;
-    }
-  }
-
-  :deep(code) {
-    background: rgba($accent-primary, 0.15);
-    color: $text-bright;
-    padding: 2px 4px;
-    border-radius: $radius-sm;
-    font-family: monospace;
-    font-size: 0.95em;
-  }
-
-  :deep(ul) {
-    padding-left: $space-md;
-  }
-
-  :deep(input[type='checkbox']:checked + label) {
-    color: $text-muted;
-    text-decoration: line-through;
-  }
 }
 
 .icon-spin {

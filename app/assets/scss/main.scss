@@ -106,7 +106,7 @@ textarea {
   &__sidebar {
     background-color: $bg-sidebar;
     border-right: 1px solid $border-color;
-    overflow-y: auto;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     z-index: $z-sidebar;
