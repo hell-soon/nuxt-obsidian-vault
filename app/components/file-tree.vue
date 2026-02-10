@@ -109,7 +109,7 @@ async function handleExpandedChange(newExpandedState: string[]) {
         v-slot="{ isExpanded }"
         v-bind="item.bind"
         class="tree-item"
-        :style="{ paddingLeft: `${item.level * 16 + 8}px` }"
+        :style="{ paddingLeft: `${item.level + 0.5}rem` }"
       >
         <template v-if="item.value.type === 'dir'">
           <div class="folder-row">

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Edit, Eye, Loader2, Save, X } from 'lucide-vue-next'
+import { Loader2, X } from 'lucide-vue-next'
 import { createApp } from 'vue'
 import CodeCopyButton from '~/components/shared/code-copy-btn/index.vue'
 
@@ -171,7 +171,6 @@ function addCopyButtonsToCodeBlocks() {
 .content-area {
   flex-grow: 1;
   overflow-y: auto;
-  padding: $space-lg;
 }
 
 .content-state {

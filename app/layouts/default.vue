@@ -22,6 +22,8 @@ const { session } = useUserSession()
       <aside
         class="app-layout__sidebar"
       >
+        <s-user-menu />
+
         <file-tree
           v-if="session?.repo"
           :key="session?.repo"
@@ -32,7 +34,6 @@ const { session } = useUserSession()
         >
           Please select a vault
         </div>
-        <s-user-menu />
       </aside>
       <main class="app-layout__content">
         <slot />
