@@ -13,11 +13,4 @@ export default defineNuxtConfig({
   hooks: {
     'components:dirs': componentsHook,
   },
-
-  hub: {
-    db: {
-      dialect: 'postgresql',
-      casing: 'camelCase',
-    },
-  },
 })

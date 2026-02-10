@@ -5,5 +5,4 @@ export const modulesConfig: NuxtConfig['modules'] = [
   'reka-ui/nuxt',
   'nuxt-auth-utils',
   '@vueuse/nuxt',
-  '@nuxthub/core',
 ]
