@@ -1,5 +1,11 @@
-// app/assets/scss/_mixins.scss
 @use "@/assets/scss/_variables.scss" as *;
+
+
+@mixin mobile {
+  @media (max-width: #{$bp-mobile}) {
+    @content;
+  }
+}
 
 @mixin reset-button {
   all: unset;
