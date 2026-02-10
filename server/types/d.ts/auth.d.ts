@@ -5,7 +5,6 @@ declare module '#auth-utils' {
 
   interface SecureSessionData {
     githubToken: string
-    selectRepo: string | null
   }
 
   interface User {
