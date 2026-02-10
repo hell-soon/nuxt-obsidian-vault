@@ -1,6 +1,4 @@
-import { schema } from '@nuxthub/db'
 import { users } from '~~/server/db/schema'
-import { useDb } from '~~/server/utils/db'
 
 export default defineOAuthGitHubEventHandler({
   config: {
@@ -8,8 +6,9 @@ export default defineOAuthGitHubEventHandler({
   },
   async onSuccess(event, { user, tokens }) {
     const db = useDb()
+    const crypto = useEncryption()
 
-    const [dbUser] = await db.insert(schema.users)
+    const [dbUser] = await db.insert(users)
       .values({
         githubId: user.id,
         avatarUrl: user.avatar_url,
@@ -22,6 +21,8 @@ export default defineOAuthGitHubEventHandler({
       })
       .returning()
 
+    const decryptedRepo = dbUser?.selectedRepo ? crypto.decrypt(dbUser.selectedRepo) : null
+
     await setUserSession(event, {
       user: {
         avatar: user.avatar_url,
@@ -33,7 +34,7 @@ export default defineOAuthGitHubEventHandler({
       secure: {
         githubToken: tokens.access_token,
       },
-      repo: dbUser?.selectedRepo || null,
+      repo: decryptedRepo,
     })
 
     if (dbUser?.selectedRepo) {

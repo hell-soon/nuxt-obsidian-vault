@@ -1,10 +1,10 @@
-import { db } from '@nuxthub/db'
 import { eq } from 'drizzle-orm'
 import { users } from '~~/server/db/schema'
 
 export default defineEventHandler(async (event) => {
   const session = await getUserSession(event)
-
+  const db = useDb()
+  
   if (!session.user?.id) {
     throw createError({ statusCode: 401, message: 'Not authenticated' })
   }

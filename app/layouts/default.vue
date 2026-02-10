@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import fileTree from '../components/file-tree.vue'
 
-const { session } = useUserSession()
+const { session, loggedIn } = useUserSession()
 
-// const userStore = useUserStore()
+const userStore = useUserStore()
 
-// if (import.meta.client) {
-//   await callOnce('app-init', async () => {
-//     if (loggedIn.value) {
-//       await userStore.fetchProfile()
-//     }
-//   })
-// }
+if (import.meta.client) {
+  await callOnce('app-init', async () => {
+    if (loggedIn.value) {
+      await userStore.fetchProfile()
+    }
+  })
+}
 </script>
 
 <template>
