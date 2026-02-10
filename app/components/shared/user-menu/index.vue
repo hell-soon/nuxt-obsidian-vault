@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { LogOut, Settings, User } from 'lucide-vue-next'
+import { LogOut, Settings } from 'lucide-vue-next'
 
 const { user, clear } = useUserSession()
 // const userStore = useUserStore()
@@ -27,11 +27,11 @@ async function handleLogout() {
       <div class="user-details">
         <span class="user-name">{{ user.login }}</span>
         <!-- <span
-          v-if="user.repo"
+          v-if="session?.repo"
           class="user-repo"
         >
           <user class="icon-mini" />
-          {{ user.currentRepo.split('/')[1] }}
+          {{ session.repo.split('/')[1] }}
         </span> -->
       </div>
     </div>
@@ -62,7 +62,7 @@ async function handleLogout() {
   padding: 12px;
   background-color: rgba(255, 255, 255, 0.03);
   border-top: 1px solid $border-color;
-  margin-top: auto; // Прижмет меню к низу сайдбара
+  margin-top: auto;
 }
 
 .user-info {
@@ -73,18 +73,32 @@ async function handleLogout() {
 }
 
 .user-avatar {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   object-fit: cover;
 }
 
 .user-name {
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   font-weight: 500;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.user-repo {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.65rem;
+  font-weight: 500;
 }
 
 .logout-btn {

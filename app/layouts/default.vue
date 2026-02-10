@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import fileTree from '../components/file-tree.vue'
 
+const { session } = useUserSession()
+
 // const userStore = useUserStore()
 
 // if (import.meta.client) {
@@ -20,8 +22,17 @@ import fileTree from '../components/file-tree.vue'
       <aside
         class="app-layout__sidebar"
       >
+        <file-tree
+          v-if="session?.repo"
+          :key="session?.repo"
+        />
+        <div
+          v-else
+          class="sidebar-empty"
+        >
+          Please select a vault
+        </div>
         <s-user-menu />
-        <file-tree />
       </aside>
       <main class="app-layout__content">
         <slot />

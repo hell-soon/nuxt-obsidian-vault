@@ -12,8 +12,11 @@ interface FileNode {
 }
 const treeData = ref<FileNode[]>([])
 const expandedNodes = ref<string[]>([])
-
-const { data, status } = await useFetch<FileNode[]>('/api/notes/tree')
+const { session } = useUserSession()
+const { data, status } = await useFetch<FileNode[]>('/api/notes/tree', {
+  key: computed(() => `notes-tree-${session.value?.repo}`),
+  immediate: !!session.value?.repo,
+})
 
 function findNode(nodes: FileNode[], id: string): FileNode | undefined {
   for (const node of nodes) {
@@ -27,6 +30,13 @@ function findNode(nodes: FileNode[], id: string): FileNode | undefined {
   }
 }
 
+watch(() => session.value?.repo, (newRepo) => {
+  if (!newRepo) {
+    treeData.value = []
+    expandedNodes.value = []
+  }
+}, { immediate: true })
+
 watch(data, (newVal) => {
   if (newVal) {
     treeData.value = newVal.map(node => ({
@@ -34,6 +44,9 @@ watch(data, (newVal) => {
       children: node.type === 'dir' ? [] : undefined,
       isLoaded: false,
     }))
+  }
+  else {
+    treeData.value = []
   }
 }, { immediate: true })
 

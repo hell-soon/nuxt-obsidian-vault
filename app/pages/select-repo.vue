@@ -21,7 +21,7 @@ async function handleSelect(fullName: string) {
       body: { repo: fullName },
     })
 
-    await navigateTo('/notes')
+    await navigateTo('/notes', { external: true })
   }
   catch (err) {
     console.error('Failed to select repo:', err)
@@ -30,6 +30,14 @@ async function handleSelect(fullName: string) {
     selectedRepoFullName.value = null
   }
 }
+
+const { fetch: refreshSession } = useUserSession()
+
+onMounted(async () => {
+  await $fetch('/api/user/reset-repo', { method: 'POST' })
+
+  await refreshSession()
+})
 </script>
 
 <template>

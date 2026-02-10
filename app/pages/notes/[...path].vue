@@ -3,10 +3,6 @@ import { Edit, Eye, Loader2, Save, X } from 'lucide-vue-next'
 import { createApp } from 'vue'
 import CodeCopyButton from '~/components/shared/code-copy-btn/index.vue'
 
-definePageMeta({
-  layout: 'notes',
-})
-
 interface NoteData {
   path: string
   content: string
