@@ -1,5 +1,5 @@
 import { defineEventHandler, getQuery } from 'h3'
-import { useGitProvider } from '../../utils/git'
+import { getGitProvider } from '~~/server/services/git'
 
 export interface FileTreeItem {
   id: string
@@ -10,7 +10,7 @@ export interface FileTreeItem {
 }
 
 export default defineEventHandler(async (event): Promise<FileTreeItem[]> => {
-  const git = await useGitProvider(event)
+  const git = await getGitProvider(event)
   const { path } = getQuery(event)
 
   const entries = await git.getEntries(path as string || '')

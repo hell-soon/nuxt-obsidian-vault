@@ -1,3 +1,5 @@
+import { getGitProvider } from '~~/server/services/git'
+
 interface NoteData {
   path: string
   content: string
@@ -11,7 +13,7 @@ export default defineEventHandler(async (event): Promise<NoteData> => {
     throw createError({ statusCode: 400, message: 'Missing file path query parameter.' })
   }
 
-  const git = await useGitProvider(event)
+  const git = await getGitProvider(event)
 
   try {
     const file = await git.getFile(path)

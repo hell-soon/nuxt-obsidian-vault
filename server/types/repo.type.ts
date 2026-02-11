@@ -110,3 +110,11 @@ export interface RepositoryPermissions {
   triage: boolean
   pull: boolean
 }
+
+export interface GitFile {
+  name: string
+  path: string
+  sha: string
+  type: 'file' | 'dir'
+  content?: string
+}
