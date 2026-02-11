@@ -1,5 +1,7 @@
+import { getGitProvider } from '~~/server/services/git'
+
 export default defineEventHandler(async (event) => {
-  const git = await useGitProvider(event)
+  const git = await getGitProvider(event)
 
   const res = await git.getUserRepos()
 
