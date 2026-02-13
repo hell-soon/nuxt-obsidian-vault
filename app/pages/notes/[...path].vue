@@ -13,6 +13,7 @@ interface NoteData {
 
 const route = useRoute()
 const isEditMode = ref(false)
+const editableContent = ref('')
 
 const filePath = computed(() => {
   const pathArray = Array.isArray(route.params.path) ? route.params.path : [route.params.path]
@@ -26,7 +27,33 @@ const { data: note, pending, error } = await useFetch<NoteData>('/api/notes/cont
   immediate: !!filePath.value,
 })
 
-const editableContent = ref('')
+async function save() {
+  if (!note.value)
+    return
+
+  try {
+    const response = await $fetch<{ sha: string, content: string }>('/api/notes/content', {
+      method: 'PATCH',
+      body: {
+        path: filePath.value,
+        content: note.value.markdown,
+        sha: note.value.sha,
+      },
+    })
+
+    note.value.sha = response.sha
+    note.value.content = response.content
+
+    isEditMode.value = false
+  }
+  catch (err: any) {
+    const message = err.data?.message || err.statusText || 'Unknown error'
+    const statusCode = err.status
+
+    console.error(`Error ${statusCode}: ${message}`)
+  }
+}
+
 const contentContainer = ref<HTMLDivElement>()
 
 watch(note, (newNote) => {
@@ -83,7 +110,9 @@ function addCopyButtonsToCodeBlocks() {
       class="editor-header"
     >
       <span class="file-path">{{ filePath }}</span>
-
+      <button @click="save">
+        Save
+      </button>
       <div class="toolbar">
         <button
           class="toolbar-btn"

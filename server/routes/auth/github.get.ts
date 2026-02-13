@@ -3,6 +3,7 @@ import { users } from '~~/server/db/schema'
 export default defineOAuthGitHubEventHandler({
   config: {
     emailRequired: true,
+    scope: ['user:email', 'repo'],
   },
   async onSuccess(event, { user, tokens }) {
     const db = useDb()

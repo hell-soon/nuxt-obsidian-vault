@@ -12,6 +12,7 @@
   "dependencies": {
     "@iconify/vue": "^5.0.0",
     "@milkdown/crepe": "^7.18.0",
+    "@milkdown/plugin-highlight": "^7.18.0",
     "@milkdown/utils": "^7.18.0",
     "@milkdown/vue": "^7.18.0",
     "@neondatabase/serverless": "^1.0.2",

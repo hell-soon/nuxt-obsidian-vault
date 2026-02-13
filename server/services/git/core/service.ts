@@ -1,6 +1,7 @@
 import type { GitFile, GitHubRepository } from '~~/server/types/repo.type'
-import type { GitHubRawNode, GitNode } from '../types/git'
+import type { GitHubRawNode, GitNode, UpdateFileOptions, UpdateFileResponse } from '../types/git'
 import type { GitHubClient } from './client'
+import { Buffer } from 'node:buffer'
 import { transformGitHubNode } from './transformer'
 
 export class GitService {
@@ -40,5 +41,29 @@ export class GitService {
     }
 
     return transformGitHubNode(data)
+  }
+
+  async updateFile(options: UpdateFileOptions) {
+    const { repo } = this.repoContext
+    const encodedPath = encodeURIComponent(options.path)
+
+    try {
+      const data = await this.client.put<UpdateFileResponse>(`/repos/${repo}/contents/${encodedPath}`, {
+        body: {
+          message: options.message || `Update ${options.path}`,
+          content: Buffer.from(options.content || '').toString('base64'),
+          sha: options.sha,
+        },
+      })
+
+      return {
+        newSha: data.content.sha,
+        commitSha: data.commit.sha,
+      }
+    }
+    catch (error: any) {
+      console.error('GitHub Error Detail:', error.response?._data)
+      throw error
+    }
   }
 }

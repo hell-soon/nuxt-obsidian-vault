@@ -18,6 +18,10 @@ useCrepe(editorRef, model)
 <style lang="scss" scoped>
 .obsidian-style-editor {
   :deep(.milkdown) {
+    --crepe-color-inline-code: #9673d3;
+
+    --crepe-color-surface: #121212;
+
     .ProseMirror {
       @include mobile {
         height: 100%;
