@@ -3,6 +3,7 @@ import { getGitProvider } from '~~/server/services/git'
 interface NoteData {
   path: string
   content: string
+  markdown?: string
   sha: string
 }
 
@@ -25,6 +26,7 @@ export default defineEventHandler(async (event): Promise<NoteData> => {
     return {
       path: file.path,
       content: htmlContent,
+      markdown: file.content,
       sha: file.sha,
     }
   }

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Loader2, X } from 'lucide-vue-next'
 import { createApp } from 'vue'
+import NoteEditor from '~/components/features/note-editor/ui/note-editor.vue'
 import CodeCopyButton from '~/components/shared/code-copy-btn/index.vue'
 
 interface NoteData {
@@ -82,6 +83,16 @@ function addCopyButtonsToCodeBlocks() {
       class="editor-header"
     >
       <span class="file-path">{{ filePath }}</span>
+
+      <div class="toolbar">
+        <button
+          class="toolbar-btn"
+          :class="{ primary: isEditMode }"
+          @click="isEditMode = !isEditMode"
+        >
+          {{ isEditMode ? 'Save & Close' : 'Edit' }}
+        </button>
+      </div>
     </header>
 
     <div
@@ -108,11 +119,20 @@ function addCopyButtonsToCodeBlocks() {
       ref="contentContainer"
       class="content-area"
     >
-      <div
-        v-if="note"
-        class="markdown-content"
-        v-html="note.content"
-      />
+      <template v-if="note">
+        <div
+          v-if="!isEditMode"
+          key="view"
+          class="markdown-content"
+          v-html="note.content"
+        />
+
+        <note-editor
+          v-else
+          :key="note.path"
+          v-model="note.markdown"
+        />
+      </template>
     </div>
   </div>
 </template>
