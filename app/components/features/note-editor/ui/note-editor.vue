@@ -70,6 +70,7 @@ useCrepe(editorRef, model)
         padding-inline: calc(0.25rem * 2);
       }
       padding-block: 2rem !important;
+      padding: 60px 80px;
     }
   }
 }
