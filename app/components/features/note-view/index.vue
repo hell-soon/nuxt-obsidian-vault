@@ -11,6 +11,7 @@ const {
   isEditMode,
   isSaving,
   contentContainer,
+  cancelEditing,
   handleMainAction,
   addCopyButtonsToCodeBlocks,
 } = await useNoteView()
@@ -84,6 +85,21 @@ const pathParts = computed(() => {
             <template v-else>
               <edit3 :size="16" /> Edit
             </template>
+          </span>
+        </button>
+
+        <button
+          v-if="isEditMode"
+          class="toolbar-btn"
+          :class="{ danger: isEditMode }"
+          @click="cancelEditing"
+        >
+          <span
+            class="btn-content"
+          >
+            <x
+              :size="16"
+            />
           </span>
         </button>
       </div>

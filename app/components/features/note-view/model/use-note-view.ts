@@ -96,6 +96,11 @@ export async function useNoteView() {
     })
   }
 
+  function cancelEditing() {
+    isEditMode.value = false
+    isSaving.value = false
+  }
+
 
   watch(() => note.value?.content, () => {
     if (!isEditMode.value) {
@@ -112,6 +117,7 @@ export async function useNoteView() {
     isSaving,
     contentContainer,
     handleMainAction,
+    cancelEditing,
     addCopyButtonsToCodeBlocks,
   }
 }

@@ -14,6 +14,10 @@
   --accent-primary: #7b58ad;
   --accent-hover: #9673d3;
 
+  --accent-danger: #e22c3d;
+  --accent-danger-hover: #f13c4c;
+  --accent-danger-subtle: rgb(from var(--accent-danger) r g b / 0.1);
+
   /* --- Selection --- */
   --color-selection-bg: var(--accent-primary);
   --color-selection-text: var(--text-inverse);

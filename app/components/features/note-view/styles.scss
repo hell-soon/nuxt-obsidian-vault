@@ -92,6 +92,25 @@
     }
   }
 
+  &.danger {
+    color: var(--text-bright);
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    &:hover:not(:disabled) {
+      background-color: rgb(from var(--accent-danger) r g b / 0.15);
+      border-color: rgb(from var(--accent-danger) r g b / 0.4);
+      color: var(--accent-danger-hover);
+    }
+
+    &:active:not(:disabled) {
+      background-color: var(--accent-danger);
+      color: #ffffff;
+      border-color: transparent;
+      transform: scale(0.96);
+    }
+  }
+
   .btn-content {
     display: flex;
     align-items: center;
