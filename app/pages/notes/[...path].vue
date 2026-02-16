@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Loader2, X } from 'lucide-vue-next'
+import { Edit3, Loader2, Save, X } from 'lucide-vue-next'
 import { createApp } from 'vue'
 import NoteEditor from '~/components/features/note-editor/ui/note-editor.vue'
 import CodeCopyButton from '~/components/shared/code-copy-btn/index.vue'
@@ -13,12 +13,12 @@ interface NoteData {
 
 const route = useRoute()
 const isEditMode = ref(false)
-const editableContent = ref('')
+const isSaving = ref(false)
+const contentContainer = ref<HTMLDivElement>()
 
 const filePath = computed(() => {
   const pathArray = Array.isArray(route.params.path) ? route.params.path : [route.params.path]
-  const pathString = pathArray.join('/')
-  return pathString || null
+  return pathArray.join('/') || null
 })
 
 const { data: note, pending, error } = await useFetch<NoteData>('/api/notes/content', {
@@ -27,9 +27,16 @@ const { data: note, pending, error } = await useFetch<NoteData>('/api/notes/cont
   immediate: !!filePath.value,
 })
 
-async function save() {
+async function handleMainAction() {
+  if (!isEditMode.value) {
+    isEditMode.value = true
+    return
+  }
+
   if (!note.value)
     return
+
+  isSaving.value = true
 
   try {
     const response = await $fetch<{ sha: string, content: string }>('/api/notes/content', {
@@ -45,48 +52,46 @@ async function save() {
     note.value.content = response.content
 
     isEditMode.value = false
+
+    nextTick(() => {
+      addCopyButtonsToCodeBlocks()
+    })
   }
   catch (err: any) {
     const message = err.data?.message || err.statusText || 'Unknown error'
-    const statusCode = err.status
-
-    console.error(`Error ${statusCode}: ${message}`)
+    console.error(`Save failed: ${message}`)
+  }
+  finally {
+    isSaving.value = false
   }
 }
 
-const contentContainer = ref<HTMLDivElement>()
-
-watch(note, (newNote) => {
-  if (newNote?.markdown) {
-    editableContent.value = newNote.markdown
-    isEditMode.value = false
-  }
-}, { immediate: true })
-
 onMounted(() => {
-  addCopyButtonsToCodeBlocks()
+  if (!pending.value)
+    addCopyButtonsToCodeBlocks()
 })
 
 watch(() => note.value?.content, () => {
-  nextTick(() => {
-    addCopyButtonsToCodeBlocks()
-  })
+  if (!isEditMode.value) {
+    nextTick(addCopyButtonsToCodeBlocks)
+  }
 })
 
 function addCopyButtonsToCodeBlocks() {
   if (!contentContainer.value)
     return
-
   const codeBlocks = contentContainer.value.querySelectorAll('pre')
 
   codeBlocks.forEach((pre) => {
-    if (pre.querySelector('.code-copy-button'))
-      return
+    const existingBtn = pre.querySelector('.code-copy-btn-container')
+    if (existingBtn)
+      existingBtn.remove()
+  })
 
+  codeBlocks.forEach((pre) => {
     const codeElement = pre.querySelector('code')
     if (!codeElement)
       return
-
     const code = codeElement.textContent || ''
 
     if (!pre.classList.contains('code-block-wrapper')) {
@@ -95,6 +100,7 @@ function addCopyButtonsToCodeBlocks() {
     }
 
     const buttonContainer = document.createElement('div')
+    buttonContainer.className = 'code-copy-btn-container'
     pre.appendChild(buttonContainer)
 
     const app = createApp(CodeCopyButton, { code })
@@ -110,16 +116,31 @@ function addCopyButtonsToCodeBlocks() {
       class="editor-header"
     >
       <span class="file-path">{{ filePath }}</span>
-      <button @click="save">
-        Save
-      </button>
+
       <div class="toolbar">
         <button
           class="toolbar-btn"
           :class="{ primary: isEditMode }"
-          @click="isEditMode = !isEditMode"
+          :disabled="isSaving"
+          @click="handleMainAction"
         >
-          {{ isEditMode ? 'Save & Close' : 'Edit' }}
+          <loader2
+            v-if="isSaving"
+            class="icon-spin"
+            :size="16"
+          />
+
+          <span
+            v-else
+            class="btn-content"
+          >
+            <template v-if="isEditMode">
+              <save :size="16" /> Save & Close
+            </template>
+            <template v-else>
+              <edit3 :size="16" /> Edit
+            </template>
+          </span>
         </button>
       </div>
     </header>
@@ -169,11 +190,12 @@ function addCopyButtonsToCodeBlocks() {
 <style lang="scss" src="@/assets/scss/_markdown.scss" />
 
 <style lang='scss' scoped>
- .editor-view-container {
+.editor-view-container {
   display: flex;
   flex-direction: column;
   height: 100%;
   padding: 0;
+  overflow: hidden;
 }
 
 .editor-header {
@@ -182,12 +204,14 @@ function addCopyButtonsToCodeBlocks() {
   align-items: center;
   padding: $space-sm $space-md;
   border-bottom: 1px solid $border-color;
+  background-color: $bg-main;
   flex-shrink: 0;
 
   .file-path {
     font-size: 0.85rem;
     color: $text-muted;
     font-weight: 500;
+    font-family: monospace;
   }
 }
 
@@ -198,51 +222,58 @@ function addCopyButtonsToCodeBlocks() {
 
 .toolbar-btn {
   @include reset-button;
-  padding: $space-xs $space-sm;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
   color: $text-muted;
   border-radius: $radius-sm;
   transition: all $transition-base;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: 1px solid transparent;
 
   &:hover:not(:disabled) {
     background-color: $bg-item-hover;
     color: $text-bright;
   }
 
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
   &.primary {
     background-color: $accent-primary;
     color: $text-inverse;
-    &:hover {
+
+    &:hover:not(:disabled) {
       background-color: $accent-hover;
     }
+  }
+
+  .btn-content {
+    display: flex;
+    align-items: center;
+    gap: 6px;
   }
 }
 
 .content-area {
   flex-grow: 1;
   overflow-y: auto;
+  position: relative;
 }
 
 .content-state {
-  @extend .content-area;
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: 1.1rem;
   color: $text-muted;
-}
-
-.markdown-editor {
-  width: 100%;
-  height: 100%;
-  border: none;
-  background-color: $bg-main;
-  color: $text-bright;
-  resize: none;
-  font-family: monospace;
-  line-height: 1.6;
-  padding: 0;
-  outline: none;
+  gap: $space-sm;
 }
 
 .icon-spin {
