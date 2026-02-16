@@ -13,4 +13,24 @@ export default defineNuxtConfig({
   hooks: {
     'components:dirs': componentsHook,
   },
+
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: 'en',
+      },
+      title: 'Nuxt Obsidian Vault',
+      meta: [
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { name: 'description', content: 'Access your Obsidian vault through GitHub integration' },
+        { name: 'theme-color', content: '#1a1a2e' },
+        { property: 'og:site_name', content: 'Nuxt Obsidian Vault' },
+        { name: 'robots', content: 'noindex, nofollow' },
+      ],
+      link: [
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+      ],
+    },
+  },
 })

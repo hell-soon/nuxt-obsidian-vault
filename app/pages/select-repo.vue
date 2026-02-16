@@ -1,4 +1,11 @@
 <script setup lang="ts">
+useSeoMeta({
+  title: 'Select Vault - Nuxt Obsidian Vault',
+  description: 'Choose a GitHub repository to use as your Obsidian vault storage',
+  ogTitle: 'Select Vault - Nuxt Obsidian Vault',
+  ogDescription: 'Choose a GitHub repository to use as your Obsidian vault storage',
+})
+
 interface Repo {
   id: number
   full_name: string

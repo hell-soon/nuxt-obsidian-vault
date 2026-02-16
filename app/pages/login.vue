@@ -3,14 +3,21 @@ import { Github } from 'lucide-vue-next'
 
 const title = 'Welcome to Nuxt Obsidian'
 
-const { displayText, scramble } = useTextScramble()
-
-onMounted(() => {
-  scramble(title)
+useSeoMeta({
+  title: 'Login - Nuxt Obsidian Vault',
+  description: 'Sign in to access your Obsidian vault through GitHub integration',
+  ogTitle: 'Login - Nuxt Obsidian Vault',
+  ogDescription: 'Sign in to access your Obsidian vault through GitHub integration',
 })
 
 definePageMeta({
   layout: 'no-aside',
+})
+
+const { displayText, scramble } = useTextScramble()
+
+onMounted(() => {
+  scramble(title)
 })
 </script>
 
