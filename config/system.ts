@@ -17,18 +17,19 @@ export const systemConfig: NuxtConfig = {
     nitroAutoImports: true,
   },
 
+  css: [
+    '~/assets/scss/main.scss',
+  ],
+
   vite: {
     css: {
       preprocessorOptions: {
         scss: {
           additionalData: `
-            @use "@/assets/scss/_variables.scss" as *;
-            @use "@/assets/scss/_mixins.scss" as *;
+            @use "~/assets/scss/_setup.scss" as *;
           `,
         },
       },
     },
   },
-
-  css: ['@/assets/scss/main.scss'],
 }

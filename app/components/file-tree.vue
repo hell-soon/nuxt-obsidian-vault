@@ -167,8 +167,8 @@ async function handleExpandedChange(newExpandedState: string[]) {
   align-items: center;
   min-height: 32px;
   cursor: pointer;
-  border-radius: $radius-sm;
-  color: $text-muted;
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
   margin: 0 8px;
   transition: background 0.1s;
 
@@ -177,7 +177,7 @@ async function handleExpandedChange(newExpandedState: string[]) {
   }
 
   &[data-selected='true'] {
-    background: rgba($accent-primary, 0.1);
+    background: rgba(var(--accent-primary), 0.1);
   }
 }
 
@@ -200,7 +200,7 @@ async function handleExpandedChange(newExpandedState: string[]) {
   font-size: 13px;
 
   &.active {
-    color: $accent-primary;
+    color: var(--accent-primary);
     font-weight: 600;
   }
 }
@@ -217,7 +217,7 @@ async function handleExpandedChange(newExpandedState: string[]) {
   }
   &-folder {
     width: 16px;
-    color: $accent-primary;
+    color: var(--accent-primary);
     flex-shrink: 0;
   }
   &-file {

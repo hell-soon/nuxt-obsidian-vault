@@ -41,8 +41,8 @@ definePageMeta({
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: $bg-main;
-  color: $text-bright;
+  background-color: var(--bg-main);
+  color: var(--text-bright);
 }
 
 .login-container {
@@ -59,7 +59,7 @@ definePageMeta({
 }
 
 :deep(.scramble-char) {
-  color: $accent-primary;
+  color: var(--accent-primary);
   opacity: 0.7;
 }
 
@@ -73,13 +73,13 @@ definePageMeta({
   padding: 1rem 2rem;
   border-radius: 12px;
   font-weight: 600;
-  transition: all $transition-base;
+  transition: all var(--transition-base);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 
   &:hover {
     transform: translateY(-2px);
     background: #f0f0f0;
-    box-shadow: 0 8px 25px rgba($accent-primary, 0.3);
+    box-shadow: 0 8px 25px rgba(var(--accent-primary), 0.3);
   }
 }
 </style>

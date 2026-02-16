@@ -93,11 +93,11 @@ $sidebar-width: 300px;
   }
 
   &__sidebar {
-    background-color: $bg-sidebar;
-    border-right: 1px solid $border-color;
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
-    z-index: $z-sidebar;
+    z-index: var(--z-sidebar);
 
     @include mobile {
       position: fixed;
@@ -106,7 +106,7 @@ $sidebar-width: 300px;
       bottom: 0;
       width: 280px;
       transform: translateX(-100%);
-      transition: transform $transition-base;
+      transition: transform var(--transition-base);
       box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
     }
   }
@@ -114,12 +114,12 @@ $sidebar-width: 300px;
   &__content {
     flex: 1;
     overflow-y: auto;
-    padding: $space-md;
+    padding: var(--space-md);
     position: relative;
     z-index: 10;
 
     @include mobile {
-      padding: $space-sm;
+      padding: var(--space-sm);
       padding-top: 60px;
     }
   }
@@ -147,10 +147,10 @@ $sidebar-width: 300px;
     inset: 0;
     background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(4px);
-    z-index: #{$z-sidebar - 1};
+    z-index: #{var(--z-sidebar) - 1};
     opacity: 0;
     pointer-events: none;
-    transition: opacity $transition-base;
+    transition: opacity var(--transition-base);
   }
 }
 
@@ -161,12 +161,12 @@ $sidebar-width: 300px;
     position: fixed;
     top: 15px;
     left: 15px;
-    z-index: #{$z-sidebar + 1};
-    background: $bg-sidebar;
-    border: 1px solid $border-color;
+    z-index: #{var(--z-sidebar) + 1};
+    background: var(--bg-sidebar);
+    border: 1px solid var(--border-color);
     padding: 8px;
-    border-radius: $radius-md;
-    color: $text-bright;
+    border-radius: var(--radius-md);
+    color: var(--text-bright);
   }
 }
 

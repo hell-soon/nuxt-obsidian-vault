@@ -49,18 +49,18 @@ async function copyCode() {
   padding: 6px;
   background: rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: $radius-sm;
-  color: $text-muted;
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
   cursor: pointer;
   opacity: 0;
-  transition: all $transition-base;
+  transition: all var(--transition-base);
   display: flex;
   align-items: center;
   justify-content: center;
 
   &:hover {
     background: rgba(0, 0, 0, 0.5);
-    color: $text-bright;
+    color: var(--text-bright);
     border-color: rgba(255, 255, 255, 0.2);
   }
 

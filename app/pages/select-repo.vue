@@ -99,11 +99,11 @@ onMounted(async () => {
   padding: 0 1rem;
 
   h1 {
-    color: $accent-primary;
+    color: var(--accent-primary);
     margin-bottom: 0.5rem;
   }
   .subtitle {
-    color: $text-muted;
+    color: var(--text-muted);
     margin-bottom: 2rem;
   }
 }
@@ -120,7 +120,7 @@ onMounted(async () => {
   align-items: center;
   padding: 1.25rem;
   // background: $bg-secondary;
-  border: 1px solid $border-color;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -128,7 +128,7 @@ onMounted(async () => {
   width: 100%;
 
   &:hover:not(:disabled) {
-    border-color: $accent-primary;
+    border-color: var(--accent-primary);
     // background: lighten($bg-secondary, 3%);
     transform: translateX(4px);
   }
@@ -143,11 +143,11 @@ onMounted(async () => {
     flex-direction: column;
     .name {
       font-weight: 600;
-      color: $text-main;
+      color: var(--text-main);
     }
     .full-name {
       font-size: 0.85rem;
-      color: $text-muted;
+      color: var(--text-muted);
     }
   }
 }

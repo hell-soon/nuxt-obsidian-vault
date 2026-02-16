@@ -202,14 +202,14 @@ function addCopyButtonsToCodeBlocks() {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: $space-sm $space-md;
-  border-bottom: 1px solid $border-color;
-  background-color: $bg-main;
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--bg-main);
   flex-shrink: 0;
 
   .file-path {
     font-size: 0.85rem;
-    color: $text-muted;
+    color: var(--text-muted);
     font-weight: 500;
     font-family: monospace;
   }
@@ -217,7 +217,7 @@ function addCopyButtonsToCodeBlocks() {
 
 .toolbar {
   display: flex;
-  gap: $space-sm;
+  gap: var(--space-sm);
 }
 
 .toolbar-btn {
@@ -226,16 +226,16 @@ function addCopyButtonsToCodeBlocks() {
   align-items: center;
   gap: 6px;
   padding: 6px 12px;
-  color: $text-muted;
-  border-radius: $radius-sm;
-  transition: all $transition-base;
+  color: var(--text-muted);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-base);
   font-size: 0.9rem;
   font-weight: 500;
   border: 1px solid transparent;
 
   &:hover:not(:disabled) {
-    background-color: $bg-item-hover;
-    color: $text-bright;
+    background-color: var(--bg-item-hover);
+    color: var(--text-bright);
   }
 
   &:disabled {
@@ -244,11 +244,11 @@ function addCopyButtonsToCodeBlocks() {
   }
 
   &.primary {
-    background-color: $accent-primary;
-    color: $text-inverse;
+    background-color: var(--accent-primary);
+    color: var(--text-inverse);
 
     &:hover:not(:disabled) {
-      background-color: $accent-hover;
+      background-color: var(--accent-hover);
     }
   }
 
@@ -272,8 +272,8 @@ function addCopyButtonsToCodeBlocks() {
   align-items: center;
   justify-content: center;
   font-size: 1.1rem;
-  color: $text-muted;
-  gap: $space-sm;
+  color: var(--text-muted);
+  gap: var(--space-sm);
 }
 
 .icon-spin {

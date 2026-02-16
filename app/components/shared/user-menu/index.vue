@@ -61,7 +61,7 @@ async function handleLogout() {
   justify-content: space-between;
   padding: 12px;
   background-color: rgba(255, 255, 255, 0.03);
-  border-top: 1px solid $border-color;
+  border-top: 1px solid var(--border-color);
   margin-top: auto;
 }
 
@@ -105,10 +105,10 @@ async function handleLogout() {
   background: none;
   border: none;
   cursor: pointer;
-  color: $text-muted;
+  color: var(--text-muted);
   padding: 4px;
   border-radius: 4px;
-  transition: all $transition-base;
+  transition: all var(--transition-base);
   display: flex;
 
   &:hover {
