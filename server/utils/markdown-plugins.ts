@@ -110,7 +110,6 @@ export function remarkWikiLinks(options: WikiLinksOptions = {}) {
         let href: string
         if (options.currentFilePath) {
           const currentDir = path.dirname(options.currentFilePath)
-
           if (cleanLink?.includes('/')) {
             const resolvedPath = path.join(currentDir, cleanLink)
             href = `/notes/${resolvedPath}.md`

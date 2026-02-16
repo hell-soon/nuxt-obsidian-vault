@@ -13,6 +13,21 @@ const {
   contentContainer,
   handleMainAction,
 } = await useNoteView()
+
+const pathParts = computed(() => {
+  if (!filePath.value)
+    return []
+  
+  const parts = filePath.value.split('/')
+  return parts.map((part, index) => {
+    const isLast = index === parts.length - 1
+    return {
+      name: part,
+      isLast,
+      isFolder: !isLast,
+    }
+  })
+})
 </script>
 
 <template>
@@ -21,7 +36,24 @@ const {
       v-if="filePath"
       class="editor-header"
     >
-      <span class="file-path">{{ filePath }}</span>
+      <span class="file-path">
+        <template
+          v-for="(part, index) in pathParts"
+          :key="index"
+        >
+          <span
+            v-if="index > 0"
+            class="separator"
+          >/</span>
+          <span
+            class="path-part"
+            :class="{
+              folder: part.isFolder,
+              filename: part.isLast,
+            }"
+          >{{ part.name }}</span>
+        </template>
+      </span>
 
       <div class="toolbar">
         <button
