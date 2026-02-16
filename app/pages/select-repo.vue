@@ -4,6 +4,7 @@ useSeoMeta({
   description: 'Choose a GitHub repository to use as your Obsidian vault storage',
   ogTitle: 'Select Vault - Nuxt Obsidian Vault',
   ogDescription: 'Choose a GitHub repository to use as your Obsidian vault storage',
+  ogImage: '/preview.png',
 })
 
 interface Repo {

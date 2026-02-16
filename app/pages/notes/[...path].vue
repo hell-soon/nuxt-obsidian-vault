@@ -13,6 +13,7 @@ useSeoMeta({
   description: computed(() => filePath.value ? `View and edit ${filePath.value} in your Obsidian vault` : 'Browse and edit your Obsidian vault notes'),
   ogTitle: computed(() => filePath.value ? `${filePath.value} - Nuxt Obsidian Vault` : 'Notes - Nuxt Obsidian Vault'),
   ogDescription: computed(() => filePath.value ? `View and edit ${filePath.value} in your Obsidian vault` : 'Browse and edit your Obsidian vault notes'),
+  ogImage: '/preview.png',
 })
 </script>
 

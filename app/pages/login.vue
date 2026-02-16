@@ -8,6 +8,7 @@ useSeoMeta({
   description: 'Sign in to access your Obsidian vault through GitHub integration',
   ogTitle: 'Login - Nuxt Obsidian Vault',
   ogDescription: 'Sign in to access your Obsidian vault through GitHub integration',
+  ogImage: '/preview.png',
 })
 
 definePageMeta({
