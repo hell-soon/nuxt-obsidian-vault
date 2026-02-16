@@ -147,7 +147,7 @@ $sidebar-width: 300px;
     inset: 0;
     background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(4px);
-    z-index: #{var(--z-sidebar) - 1};
+    z-index: calc(var(--z-sidebar) - 1);
     opacity: 0;
     pointer-events: none;
     transition: opacity var(--transition-base);
@@ -156,12 +156,13 @@ $sidebar-width: 300px;
 
 .mobile-nav-toggle {
   display: none;
+
   @include mobile {
     display: flex;
     position: fixed;
     top: 15px;
     left: 15px;
-    z-index: #{var(--z-sidebar) + 1};
+    z-index: calc(var(--z-sidebar) + 1);
     background: var(--bg-sidebar);
     border: 1px solid var(--border-color);
     padding: 8px;
