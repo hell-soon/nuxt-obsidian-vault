@@ -12,12 +12,18 @@ const {
   isSaving,
   contentContainer,
   handleMainAction,
+  addCopyButtonsToCodeBlocks,
 } = await useNoteView()
+
+onMounted(() => {
+  if (!pending.value)
+    addCopyButtonsToCodeBlocks()
+})
 
 const pathParts = computed(() => {
   if (!filePath.value)
     return []
-  
+
   const parts = filePath.value.split('/')
   return parts.map((part, index) => {
     const isLast = index === parts.length - 1

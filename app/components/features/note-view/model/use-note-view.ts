@@ -96,10 +96,6 @@ export async function useNoteView() {
     })
   }
 
-  onMounted(() => {
-    if (!pending.value)
-      addCopyButtonsToCodeBlocks()
-  })
 
   watch(() => note.value?.content, () => {
     if (!isEditMode.value) {
