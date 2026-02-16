@@ -20,6 +20,7 @@ export class GitService {
   async getUserRepos(): Promise<GitHubRepository[]> {
     return await this.client.get<GitHubRepository[]>('/user/repos', {
       query: {
+        affiliation: 'owner',
         sort: 'updated',
         per_page: 100,
       },
