@@ -16,6 +16,8 @@ const {
   addCopyButtonsToCodeBlocks,
 } = await useNoteView()
 
+const toast = useToastStore()
+
 onMounted(() => {
   if (!pending.value)
     addCopyButtonsToCodeBlocks()
@@ -60,6 +62,8 @@ const pathParts = computed(() => {
             }"
           >{{ part.name }}</span>
         </template>
+
+        <button @click="toast.open('test', 'success')">Toast</button>
       </span>
 
       <div class="toolbar">

@@ -5,6 +5,7 @@ import process from 'node:process'
 const PREFIX_MAP: Record<string, string> = {
   ui: 'U',
   shared: 'S',
+  features: 'F',
 }
 
 export function findComponentDirs(startPath: string): any[] {

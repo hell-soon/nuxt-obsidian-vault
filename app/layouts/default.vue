@@ -69,6 +69,8 @@ if (import.meta.client) {
         <slot />
       </main>
     </div>
+
+    <u-toast />
   </div>
 </template>
 
