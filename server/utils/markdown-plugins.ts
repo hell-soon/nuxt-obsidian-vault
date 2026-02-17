@@ -157,3 +157,59 @@ export function remarkWikiLinks(options: WikiLinksOptions = {}) {
     })
   }
 }
+
+/**
+ * Remark плагин для поддержки ==highlight== -> <mark>highlight</mark>
+ */
+export function remarkObsidianMark() {
+  return (tree: any) => {
+    visit(tree, 'text', (node: any, index: any, parent: any) => {
+      const text = node.value
+      const regex = /==(.+?)==/g
+
+      if (!text.includes('=='))
+        return
+
+      const matches = [...text.matchAll(regex)]
+      if (matches.length === 0)
+        return
+
+      const newChildren = []
+      let lastIndex = 0
+
+      for (const match of matches) {
+        const fullMatch = match[0]
+        const content = match[1]
+        const startIndex = match.index!
+
+        if (startIndex > lastIndex) {
+          newChildren.push({
+            type: 'text',
+            value: text.slice(lastIndex, startIndex),
+          })
+        }
+
+        newChildren.push({
+          type: 'mark',
+          data: {
+            hName: 'mark',
+          },
+          children: [{ type: 'text', value: content }],
+        })
+
+        lastIndex = startIndex + fullMatch.length
+      }
+
+      if (lastIndex < text.length) {
+        newChildren.push({
+          type: 'text',
+          value: text.slice(lastIndex),
+        })
+      }
+
+      if (parent && typeof index === 'number') {
+        parent.children.splice(index, 1, ...newChildren)
+      }
+    })
+  }
+}

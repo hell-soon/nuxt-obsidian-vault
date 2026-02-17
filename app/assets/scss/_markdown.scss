@@ -240,7 +240,7 @@
   }
 
   mark {
-    background-color: rgba(var(--accent-primary), 0.3);
+    background-color: rgb(from var(--accent-primary) r g b / 0.3);
     color: var(--text-main);
     padding: 2px 4px;
     border-radius: 2px;

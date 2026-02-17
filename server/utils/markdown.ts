@@ -9,7 +9,7 @@ import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import { createHighlighter } from 'shiki'
 import { unified } from 'unified'
-import { remarkObsidianCallouts, remarkWikiLinks } from './markdown-plugins'
+import { remarkObsidianCallouts, remarkObsidianMark, remarkWikiLinks } from './markdown-plugins'
 
 const THEME = 'vitesse-dark'
 const SUPPORTED_LANGS: BundledLanguage[] = [
@@ -87,6 +87,7 @@ export async function parseMarkdown(
       .use(remarkBreaks)
       .use(remarkWikiLinks, { currentFilePath: options.currentFilePath })
       .use(remarkObsidianCallouts)
+      .use(remarkObsidianMark)
       .use(remarkRehype, {
         allowDangerousHtml: false,
       })

@@ -5,12 +5,12 @@ interface Props {
   code: string
 }
 
-const props = defineProps<Props>()
+const { code } = defineProps<Props>()
 const copied = ref(false)
 
 async function copyCode() {
   try {
-    await navigator.clipboard.writeText(props.code)
+    await navigator.clipboard.writeText(code)
     copied.value = true
 
     setTimeout(() => {
