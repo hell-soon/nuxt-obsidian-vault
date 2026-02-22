@@ -48,11 +48,11 @@ function iconType(type: Toast['type']) {
 <style lang="scss" scoped>
 .toast-provider {
   position: fixed;
-  bottom: 24px;
-  right: 24px;
+  bottom: var(--space-lg);
+  right: var(--space-lg);
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--space-sm);
   z-index: var(--z-modal);
   width: 320px;
   pointer-events: none;
@@ -63,10 +63,14 @@ function iconType(type: Toast['type']) {
   background-color: var(--bg-sidebar);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
-  padding: 12px 16px;
+  /* Более глубокая и темная тень для темной темы Obsidian */
+  box-shadow:
+    0 8px 16px rgba(0, 0, 0, 0.4),
+    0 2px 4px rgba(0, 0, 0, 0.3);
+  padding: 12px var(--space-md);
   display: flex;
   align-items: flex-start;
-  gap: 12px;
+  gap: var(--space-md);
   position: relative;
   overflow: hidden;
 
@@ -80,33 +84,112 @@ function iconType(type: Toast['type']) {
     background-color: var(--accent-primary);
   }
 
-  &.is-success::before {
-    background-color: #43d043;
+  /* Привязка к цветам Obsidian */
+  &.is-info {
+    &::before {
+      background-color: var(--accent-primary);
+    }
+    .toast-icon {
+      color: var(--accent-primary);
+    }
   }
-  &.is-error::before {
-    background-color: var(--accent-danger);
+  &.is-success {
+    &::before {
+      background-color: #36b37e;
+    } /* Obsidian-like green */
+    .toast-icon {
+      color: #36b37e;
+    }
   }
-  &.is-warning::before {
-    background-color: #e7c000;
+  &.is-warning {
+    &::before {
+      background-color: #e3b341;
+    } /* Obsidian-like yellow */
+    .toast-icon {
+      color: #e3b341;
+    }
+  }
+  &.is-error {
+    &::before {
+      background-color: var(--accent-danger);
+    }
+    .toast-icon {
+      color: var(--accent-danger);
+    }
   }
 }
 
+.toast-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.toast-content {
+  flex: 1;
+  /* Делаем шрифт чуть меньше основного (14px), как принято для уведомлений */
+  font-size: calc(var(--font-size-base) - 2px);
+  line-height: 1.4;
+  color: var(--text-main);
+  word-break: break-word;
+}
+
+.toast-close {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  padding: var(--space-xs);
+  margin: calc(var(--space-xs) * -1) calc(var(--space-xs) * -1) 0 0;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-base);
+
+  &:hover {
+    background-color: var(--bg-item-hover);
+    color: var(--text-bright);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+  }
+}
+
+/* Анимации завязаны на var(--transition-base) */
 .toast-list-enter-active,
 .toast-list-leave-active {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all var(--transition-base);
 }
 
 .toast-list-enter-from {
   opacity: 0;
-  transform: translateX(30px) scale(0.9);
+  transform: translateX(30px) scale(0.95);
 }
 
 .toast-list-leave-to {
   opacity: 0;
-  transform: scale(0.8);
+  transform: scale(0.95);
 }
 
 .toast-list-move {
-  transition: transform 0.3s ease;
+  transition: transform var(--transition-base);
+}
+
+.toast-list-leave-active {
+  position: absolute;
+  /* Ширина минус двойной отступ (left + right) */
+  width: calc(100% - (var(--space-lg) * 2));
+  z-index: -1;
 }
 </style>

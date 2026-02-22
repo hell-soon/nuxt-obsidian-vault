@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Menu as MenuIcon, X } from 'lucide-vue-next'
+import { Menu as MenuIcon } from 'lucide-vue-next'
 import fileTree from '../components/features/file-tree/index.vue'
 
 const { session, loggedIn } = useUserSession()
