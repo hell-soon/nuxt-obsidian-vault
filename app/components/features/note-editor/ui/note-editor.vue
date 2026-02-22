@@ -20,7 +20,12 @@ useCrepe(editorRef, model)
   :deep(.milkdown) {
     --crepe-color-inline-code: var(--accent-primary);
     --crepe-color-primary: var(--accent-primary);
-
+    --crepe-font-title:
+      -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji',
+      'Segoe UI Emoji';
+    --crepe-font-default:
+      -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji',
+      'Segoe UI Emoji';
     --crepe-color-surface: #121212;
 
     h2 {

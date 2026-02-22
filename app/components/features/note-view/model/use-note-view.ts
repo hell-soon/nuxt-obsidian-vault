@@ -14,6 +14,7 @@ export async function useNoteView() {
   const isEditMode = ref(false)
   const isSaving = ref(false)
   const contentContainer = ref<HTMLDivElement>()
+  const toast = useToastStore()
 
   const filePath = computed(() => {
     const pathArray = Array.isArray(route.params.path) ? route.params.path : [route.params.path]
@@ -49,7 +50,7 @@ export async function useNoteView() {
 
       note.value.sha = response.sha
       note.value.content = response.content
-
+      toast.open('Note saved successfully', 'success' )
       isEditMode.value = false
 
       nextTick(() => {
